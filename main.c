@@ -1,9 +1,19 @@
 #include <stdio.h>
 
+int calculateTotal(int pointsTotal[]){
+    int total = 0;
+
+    for (int i = 0; i < 5; ++i){
+        total += pointsTotal[i];
+    }
+
+    return total;
+}
+
 int main() {
     int i;
     int ans1, ans2, ans3, ans4, ans5;
-    int point1, point2, point3, point4, point5;
+    int points[5];
     int total;
 
     printf("    Welcome to Quiz Night\n\n");
@@ -40,19 +50,19 @@ int main() {
         {
             fflush(stdin);
             printf("You have to a Number, Next Question!\n\n");
-            point1 = -1;
+            points[0] = -1;
         }
         else if(ans1==2)
         {
             printf("Correct Answer\n");
-            point1 = 5;
-            printf("You have scored %d point\n\n", point1);
+            points[0] = 5;
+            printf("You have scored %d point\n\n", points[0]);
         }
         else
         {
             printf("Wrong Answer\n");
-            point1 = 1;
-            printf("You have scored %d point\n\n", point1);
+            points[0] = 1;
+            printf("You have scored %d point\n\n", points[0]);
         }
         // Question 2
         printf("Q) Which one is the first web browser invented in 1990?\n\n");
@@ -66,18 +76,18 @@ int main() {
         {
             fflush(stdin);
             printf("You have to a Number, Next Question!\n\n");
-            point2 = -1;
+            points[1] = -1;
         }
         else if(ans2==4){
             printf("Correct Answer\n");
-            point2 = 5;
-            printf("You have scored %d point\n\n", point2);
+            points[1] = 5;
+            printf("You have scored %d point\n\n", points[1]);
         }
         else
         {
             printf("Wrong Answer\n");
-            point2= 0;
-            printf("You have scored %d point\n\n", point2);
+            points[1] = 0;
+            printf("You have scored %d point\n\n", points[1]);
         }
         // Question 3
         printf("Q) First computer virus is known as?\n\n");
@@ -92,19 +102,19 @@ int main() {
         {
             fflush(stdin);
             printf("You have to a Number, Next Question!\n\n");
-            point3 = -1;
+            points[2] = -1;
         }
         else if (ans3==2)
         {
             printf("Correct Answer\n");
-            point3 = 5;
-            printf("You have scored %d point\n\n", point3);
+            points[2] = 5;
+            printf("You have scored %d point\n\n", points[2]);
         }
         else
         {
             printf("Wrong Answer\n");
-            point3 = 0;
-            printf("You have scored %d point\n\n", point3);
+            points[2] = 0;
+            printf("You have scored %d point\n\n", points[2]);
         }
     }
     // Question 4
@@ -120,18 +130,18 @@ int main() {
     {
         fflush(stdin);
         printf("You have to a Number, Next Question!\n\n");
-        point4 = -1;
+        points[3] = -1;
     }
     else if(ans4==1){
         printf("Correct Answer\n");
-        point4 = 5;
-        printf("You have scored %d point\n\n", point4);
+        points[3] = 5;
+        printf("You have scored %d point\n\n", points[3]);
     }
     else
     {
         printf("Wrong Answer\n");
-        point4 = 0;
-        printf("You have scored %d point\n\n", point4);
+        points[3] = 0;
+        printf("You have scored %d point\n\n", points[3]);
     }
     // Question 5
     printf("Q) Which of the following is not a database management software?\n\n");
@@ -146,20 +156,20 @@ int main() {
     {
         fflush(stdin);
         printf("You have to a Number, Next Question!\n\n");
-        point5 = -1;
+        points[4] = -1;
     }
     else if(ans5==3){
         printf("Correct Answer\n");
-        point5 = 5;
-        printf("You have scored %d point\n\n", point5);
+        points[4] = 5;
+        printf("You have scored %d point\n\n", points[4]);
     }
     else {
         printf("Wrong Answer\n");
-        point5 = 0;
-        printf("You have scored %d point\n\n", point5);
+        points[4] = 0;
+        printf("You have scored %d point\n\n", points[4]);
     }
 
-    total = point1 + point2 + point3 + point4 + point5;
+    total = calculateTotal(points);
 
     printf("  End of Game\n\n");
     printf("You scored a total of %d points", total);
