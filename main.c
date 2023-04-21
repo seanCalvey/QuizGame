@@ -1,58 +1,61 @@
 #include <stdio.h>
 
-int calculateTotal(const int *pointsTotal){
+
+enum {
+    START_GAME = 7,
+    QUIT_GAME = 0
+};
+
+typedef struct {
+    const char* question;
+    const char* answer;
+    const char* options[4];
+} Question;
+
+int calculateTotal(const int* pointsTotal) {
     int total = 0;
 
-    for (int i = 0; i < 5; ++i){
+    for (int i = 0; i < 5; ++i) {
         total += pointsTotal[i];
     }
 
     return total;
 }
 
-struct Question{
-    char * question;
-    char * answer;
-    char * options[4];
-};
-
-void startupMenu(){
-    int i;
+void startupMenu() {
+    int input;
     printf("    Welcome to Quiz Night\n\n");
+    printf("> Press %d to start\n", START_GAME);
+    printf("> Press %d to quit\n", QUIT_GAME);
 
-    printf("> Press 7 to start\n");
-    printf("> Press 0 to quit\n");
+    if (scanf("%d", &input) != 1) {
+        printf("Invalid input. The Game has ended\n\n");
+        return;
+    }
 
-    scanf("%d", &i);
-
-    if(i==7)
-    {
+    if (input == START_GAME) {
         printf("The Game has started\n\n");
-    }
-    else if (i==0)
-    {
+    } else if (input == QUIT_GAME) {
         printf("The Game has ended\n\n");
-    }
-    else
-    {
-        printf("Invalid Input");
+    } else {
+        printf("Invalid Input\n\n");
     }
 }
 
-int askQuestion(struct Question question){
+int askQuestion(const Question* question) {
     int input = 0;
-    printf("%s", question.question);
-    for (int i = 0; i < 4; i++){
-        printf("%d) %s", i + 1, question.options[i]);
+    printf("%s", question->question);
+    for (int i = 0; i < 4; i++) {
+        printf("%d) %s", i + 1, question->options[i]);
     }
     printf("Enter Your Answer :\n");
-    if (scanf("%d", &input) != 1){
+    if (scanf("%d", &input) != 1) {
         fflush(stdin);
-        printf("You have to a Number, Next Question!\n\n");
+        printf("Invalid input. Next Question!\n\n");
         return -1;
-    } else if (question.answer == question.options[input - 1]){
+    } else if (question->answer == question->options[input - 1]) {
         printf("Correct Answer\n");
-        printf("You have scored 5 point\n\n");
+        printf("You have scored 5 points\n\n");
         return 5;
     } else {
         printf("Wrong Answer\n");
@@ -64,7 +67,7 @@ int askQuestion(struct Question question){
 int main() {
     int points[5];
     int total;
-    struct Question question;
+    Question question = {};
 
     startupMenu();
 
@@ -76,7 +79,7 @@ int main() {
     question.options[2] = "Wais\n";
     question.options[3] = "Altavista\n";
 
-    points[0] = askQuestion(question);
+    points[0] = askQuestion(&question);
     // Question 2
     question.question = "Q) Which one is the first web browser invented in 1990?\n\n";
     question.answer = "Nexus\n";
@@ -85,7 +88,7 @@ int main() {
     question.options[2] = "Mozilla\n";
     question.options[3] = "Nexus\n";
 
-    points[1] = askQuestion(question);
+    points[1] = askQuestion(&question);
     // Question 3
     question.question = "Q) First computer virus is known as?\n\n";
     question.answer = "Creeper Virus\n";
@@ -94,7 +97,7 @@ int main() {
     question.options[2] = "Elk Cloner\n";
     question.options[3] = "SCA Virus\n";
 
-   points[2] = askQuestion(question);
+    points[2] = askQuestion(&question);
     // Question 4
     question.question = "Q) Firewall in a computer is used for?\n\n";
     question.answer = "Security\n";
@@ -103,7 +106,7 @@ int main() {
     question.options[2] = "Monitoring\n";
     question.options[3] = "Authentication\n";
 
-    points[3] = askQuestion(question);
+    points[3] = askQuestion(&question);
     // Question 5
     question.question = "Q) Which of the following is not a database management software?\n\n";
     question.answer = "cobal\n";
@@ -112,8 +115,8 @@ int main() {
     question.options[2] = "cobal\n";
     question.options[3] = "Sybase\n";
 
-   points[4] = askQuestion(question);
-
+    points[4] = askQuestion(&question);
+    // End of Game
     total = calculateTotal(points);
 
     printf("  End of Game\n\n");
